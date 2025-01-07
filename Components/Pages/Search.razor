@@ -1,13 +1,13 @@
-﻿@page "/customerinfo"
+﻿@page "/Search"
+
 @using Customer_Information;
 @using Serilog
 @rendermode InteractiveServer
 @attribute [StreamRendering]
-<PageTitle>Customer</PageTitle>
+<PageTitle>Search Customer</PageTitle>
 
 <h1>Customer Information System </h1>
-<p>Customer Data</p>
-
+<p> Search Customer Data</p>
 <div class="container">
 	 <div class="row">
         <div class="col ">
@@ -41,33 +41,8 @@
         <div class="col d-flex justify-content-center align-items-center ">
             <button class="btn btn-danger" @onclick="ReloadData">Reload Data </button>
         </div>
-        <div class="col">
-            <div class="row d-flex justify-content-center align-items-center">
-                <h3>Sort Customers Data  </h3>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <select class="btn btn-outline-primary shadow-lg" @onchange="OnSortAttributeSelected">
-                        <option value="">-- Select an Attribute --</option>
-                        @foreach (var str in Queries.ValidSortAttributes)
-                        {
-                            <option value="@str"> @str </option>
-                        }
-                    </select>
-
-                </div>
-
-                <div class="col">
-                    Ascending Order 
-                    <input type="checkbox" @bind="IsAsc" />
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </div>
-
 @if (customers == null)
 {
     <p><em>Loading...</em></p>
@@ -103,17 +78,13 @@ else
     </table>
 }
 
-@code{
+@code {
     List<Customer> customers = CustomerRepository.GetCustomerData();
-    List<String> DistinctValues =new (){
-	"Select Attribute"
-	};
+    List<String> DistinctValues = new(){
+    "Select Attribute"
+    };
     string SelectedSearchAttribute = string.Empty;
     string SelectedAttributevalue = string.Empty;
-    string SelectedSortAttribute = string.Empty;
-
-    private bool IsAsc = false;
-
     private void OnSearchAttributeSelected(ChangeEventArgs e)
     {
         SelectedSearchAttribute = e.Value?.ToString() ?? Queries.ValidSearchAttributes[0]!;
@@ -125,18 +96,12 @@ else
     {
         SelectedAttributevalue = e.Value?.ToString() ?? DistinctValues[0]!;
 
-        if (SelectedAttributevalue!=null)
+        if (SelectedAttributevalue != null)
             customers = Queries.Find(customers, SelectedSearchAttribute, SelectedAttributevalue);
     }
     private void ReloadData()
     {
         customers = CustomerRepository.GetCustomerData();
 
-    }
-    private void OnSortAttributeSelected(ChangeEventArgs e)
-    {
-        bool order = IsAsc;
-        SelectedSortAttribute = e.Value?.ToString() ?? Queries.ValidSortAttributes[0]!;
-        customers = Queries.SortCustomers(customers, SelectedSortAttribute, order);
     }
 }

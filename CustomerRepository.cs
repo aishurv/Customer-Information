@@ -14,6 +14,11 @@ namespace Customer_Information
     public class CustomerRepository
     {
         public const string InputFilePath = "CustomerData.csv";
+        public static List<Customer> customersData = new();
+        static CustomerRepository()
+        {
+            customersData = CustomerRepository.ReadData();
+        }
         public static List<Customer> ReadData(string filePath = InputFilePath)
         {
             List<Customer> customers;
@@ -23,9 +28,13 @@ namespace Customer_Information
             var csv = new CsvReader(reader, config);
 
             customers = csv.GetRecords<Customer>().ToList();
+            customersData = [.. customers]; // customersData = customers.ToList(); simplified version 
             return customers;
         }
-        
+        public static List<Customer> GetCustomerData()
+        {
+            return customersData;
+        }
     }
 }
 
