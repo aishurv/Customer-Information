@@ -44,7 +44,7 @@ namespace Customer_Information
             }).ToList();
             return matchedCustomers;
         }
-        public static List<Customer> SortCustomers(List<Customer> customers, string attributeName, bool ascending = true)
+        public static List<Customer> SortCustomers(List<Customer> customers, string attributeName, bool ascending)
         {
             var property = typeof(Customer).GetProperty(attributeName);            
             return ascending
