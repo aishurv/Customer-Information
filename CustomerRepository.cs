@@ -13,8 +13,8 @@ namespace Customer_Information
 {
     public class CustomerRepository
     {
-        public static string InputFilePath = "CustomerData.csv";
-        public static List<Customer> ReadData(string filePath)
+        public const string InputFilePath = "CustomerData.csv";
+        public static List<Customer> ReadData(string filePath = InputFilePath)
         {
             List<Customer> customers;
             var config = new CsvConfiguration(CultureInfo.InvariantCulture);
@@ -25,18 +25,7 @@ namespace Customer_Information
             customers = csv.GetRecords<Customer>().ToList();
             return customers;
         }
-        public static List<Customer> ReadData()
-        {
-            List<Customer> customers;
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture);
-
-            var reader = new StreamReader(InputFilePath);
-            var csv = new CsvReader(reader, config);
-
-            customers = csv.GetRecords<Customer>().ToList();
-            Log.Information($" From {InputFilePath} data loaded Successfully !");
-            return customers;
-        }
+        
     }
 }
 
