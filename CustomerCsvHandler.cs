@@ -44,6 +44,11 @@ namespace CustomerInformation
                     csv.WriteRecords("No Result Found !");
             }
         }
+        public static Customer GetCustomerById(string id)
+        {
+            Customer? customer = customersData.FirstOrDefault(c => c.ID == id);
+            return customer?? new Customer();
+        }
     }
 }
 
