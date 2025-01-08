@@ -1,5 +1,5 @@
 ﻿using Serilog;
-namespace Customer_Information
+namespace CustomerInformation
 {
     public static class Logger
     {

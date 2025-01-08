@@ -1,24 +1,36 @@
-﻿using Customer_Information;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace CustomerInformation.Components.Pages
 {
     public partial class SortDescending
     {
-        List<Customer> customers = CustomerCsvDataReader.GetCustomerData();
+        List<Customer> customers = CustomerCsvHandler.GetCustomerData();
         string SelectedSortAttribute = string.Empty;
-        List<String> ValidSort = Queries.ValidSortAttributes;
+        List<String> ValidSort = [
+                "ID",
+                "Name",
+                "City",
+                "Country",
+                "Company",
+                "Phone",
+                "Email"
+            ];
 
         private void OnSortAttributeSelected(ChangeEventArgs e)
         {
-            bool order = false;
-            SelectedSortAttribute = e.Value?.ToString() ?? Queries.ValidSortAttributes[0]!;
-            customers = Queries.SortCustomers(customers, SelectedSortAttribute, order);
+            SelectedSortAttribute = e.Value?.ToString() ?? ValidSort[0]!;
+            customers = SortCustomersDesc(SelectedSortAttribute);
         }
         private void ReloadData()
         {
-            customers = CustomerCsvDataReader.GetCustomerData();
+            customers = CustomerCsvHandler.GetCustomerData();
 
+        }
+#nullable disable
+        List<Customer> SortCustomersDesc(string attributeName)
+        {
+            var property = typeof(Customer).GetProperty(attributeName);
+            return customers.OrderByDescending(c => property.GetValue(c, null)).ToList();
         }
     }
 }
