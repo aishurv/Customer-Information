@@ -11,9 +11,6 @@ namespace CustomerInformation.Components.Pages
 
         protected override void OnInitialized()
         {
-            Console.WriteLine($"Initial Customer ID: {customer.ID}");
-            Console.WriteLine($"Initial Customer Name: {customer.Name}");
-            Console.WriteLine($"Initial Customer City: {customer.City}");
             customer = new Customer();
         }
 
