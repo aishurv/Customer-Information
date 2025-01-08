@@ -1,6 +1,4 @@
 ﻿@page "/sortDesc"
-@using Customer_Information;
-@using Serilog
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 <PageTitle>Customer</PageTitle>
@@ -12,7 +10,7 @@
 
 <select class="btn btn-outline-primary shadow-lg" @onchange="OnSortAttributeSelected">
     <option value="">-- Select an Attribute --</option>
-    @foreach (var str in Queries.ValidSortAttributes)
+    @foreach (var str in ValidSort)
     {
         <option value="@str"> @str </option>
     }
@@ -53,19 +51,3 @@ else
     </table>
 }
 
-@code {
-    List<Customer> customers = CustomerRepository.GetCustomerData();
-    string SelectedSortAttribute = string.Empty;
-
-    private void OnSortAttributeSelected(ChangeEventArgs e)
-    {
-        bool order = false;
-        SelectedSortAttribute = e.Value?.ToString() ?? Queries.ValidSortAttributes[0]!;
-        customers = Queries.SortCustomers(customers, SelectedSortAttribute, order);
-    }
-    private void ReloadData()
-    {
-        customers = CustomerRepository.GetCustomerData();
-
-    }
-}

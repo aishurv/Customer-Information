@@ -1,10 +1,5 @@
 ﻿@page "/customerinfo"
-@using Customer_Information;
-@using Serilog
-@rendermode InteractiveServer
-@attribute [StreamRendering]
 <PageTitle>Customer</PageTitle>
-
 <h1>Customer Information System </h1>
 
 @if (customers == null)
@@ -42,17 +37,3 @@ else
     </table>
 }
 
-@code{
-    List<Customer> customers = CustomerRepository.GetCustomerData();
-    string SelectedSortAttribute = string.Empty;
-
-    private bool IsAsc = false;
-
-   
-    private void OnSortAttributeSelected(ChangeEventArgs e)
-    {
-        bool order = IsAsc;
-        SelectedSortAttribute = e.Value?.ToString() ?? Queries.ValidSortAttributes[0]!;
-        customers = Queries.SortCustomers(customers, SelectedSortAttribute, order);
-    }
-}

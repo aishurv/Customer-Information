@@ -1,7 +1,5 @@
 ﻿@page "/Search"
 
-@using Customer_Information;
-@using Serilog
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 <PageTitle>Search Customer</PageTitle>
@@ -15,7 +13,7 @@
 
             <select class="btn btn-outline-primary shadow-lg" @onchange="OnSearchAttributeSelected">
                 <option value="">-- Select an Attribute --</option>
-                @foreach (var str in Queries.ValidSearchAttributes)
+                @foreach (var str in SearchAttribute)
                 {
                     <option value="@str"> @str </option>
                 }
@@ -72,30 +70,3 @@ else
     </table>
 }
 
-@code {
-    List<Customer> customers = CustomerRepository.GetCustomerData();
-    List<String> DistinctValues = new(){
-    "Select Attribute"
-    };
-    string SelectedSearchAttribute = string.Empty;
-    string SelectedAttributevalue = string.Empty;
-    private void OnSearchAttributeSelected(ChangeEventArgs e)
-    {
-        SelectedSearchAttribute = e.Value?.ToString() ?? Queries.ValidSearchAttributes[0]!;
-
-        if (SelectedSearchAttribute != null)
-            DistinctValues = Queries.getDistinctValues(customers, SelectedSearchAttribute);
-    }
-    private void OnValueSelected(ChangeEventArgs e)
-    {
-        SelectedAttributevalue = e.Value?.ToString() ?? DistinctValues[0]!;
-
-        if (SelectedAttributevalue != null)
-            customers = Queries.Find(customers, SelectedSearchAttribute, SelectedAttributevalue);
-    }
-    private void ReloadData()
-    {
-        customers = CustomerRepository.GetCustomerData();
-
-    }
-}

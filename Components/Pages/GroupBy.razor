@@ -1,0 +1,34 @@
+﻿@page "/groupby"
+@using Customer_Information;
+@using Serilog
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+<PageTitle>Customer</PageTitle>
+
+<h1>Customer Information System </h1>
+<h3> Group Customers </h3>
+<button class="btn btn-danger shadow-lg" @onclick="ReloadData">Reload Data </button>
+
+<select class="btn btn-outline-primary shadow-lg" @onchange="OnGroupAttributeSelected">
+    <option value="">-- Select an Attribute --</option>
+    @foreach (var str in Queries.ValidGroupAttributes)
+    {
+        <option value="@str"> @str </option>
+    }
+</select>
+
+@code {
+    List<Customer> customers = CustomerRepository.GetCustomerData();
+    string SelectedGroupAttribute = string.Empty;
+
+    private void OnGroupAttributeSelected(ChangeEventArgs e)
+    {
+        SelectedGroupAttribute = e.Value?.ToString() ?? Queries.ValidSortAttributes[0]!;
+        // customers = Queries.SortCustomers(customers, SelectedSortAttribute, order);
+    }
+    private void ReloadData()
+    {
+        customers = CustomerRepository.GetCustomerData();
+
+    }
+}
