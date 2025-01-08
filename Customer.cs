@@ -1,16 +1,25 @@
-﻿namespace Customer_Information
+﻿namespace CustomerInformation
 {
     public class Customer
     {
-        public required string CustomerID { get; set; }
-        public string? CustomerName { get; set; }
-        public string? CustomerCity { get; set; }
-        public string? CustomerCountry { get; set; }
+        public required string ID { get; set; }
+        public required string Name { get; set; }
+        public string? City { get; set; }
+        public string? Country { get; set; }
 
-        public string? CustomerCompany { get; set; }
+        public string? Company { get; set; }
 
-        public string? CustomerPhone { get; set; }
-        public string? CustomerEmail { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public Customer()
+        {
+
+        }
+        public Customer (string id,String name)
+        {
+            ID = id;
+            Name = name;
+        }
 
     }
 }

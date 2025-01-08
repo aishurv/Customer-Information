@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Serilog;
-namespace Customer_Information
+namespace CustomerInformation
 
 {
-    public class CustomerRepository
+    public class CustomerCsvDataReader
     {
         public const string InputFilePath = "CustomerData.csv";
         public static List<Customer> customersData = new();
-        static CustomerRepository()
+        static CustomerCsvDataReader()
         {
-            customersData = CustomerRepository.ReadData();
+            customersData = CustomerCsvDataReader.ReadData();
         }
         public static List<Customer> ReadData(string filePath = InputFilePath)
         {

@@ -5,7 +5,7 @@ namespace CustomerInformation.Components.Pages
 {
     public partial class SortAscending
     {
-        List<Customer> customers = CustomerRepository.GetCustomerData();
+        List<Customer> customers = CustomerCsvDataReader.GetCustomerData();
         string SelectedSortAttribute = string.Empty;
         List<String> ValidSort = Queries.ValidSortAttributes;
 
@@ -17,7 +17,7 @@ namespace CustomerInformation.Components.Pages
         }
         private void ReloadData()
         {
-            customers = CustomerRepository.GetCustomerData();
+            customers = CustomerCsvDataReader.GetCustomerData();
 
         }
     }

@@ -90,13 +90,13 @@ else
             @foreach (var customer in customers)
             {
                 <tr>
-                    <td>@customer.CustomerID </td>
-                    <td>@customer.CustomerName </td>
-                    <td>@customer.CustomerCity </td>
-                    <td>@customer.CustomerCountry </td>
-                    <td>@customer.CustomerCompany </td>
-                    <td>@customer.CustomerPhone </td>
-                    <td>@customer.CustomerEmail </td>
+                    <td>@customer.ID </td>
+                    <td>@customer.Name </td>
+                    <td>@customer.City </td>
+                    <td>@customer.Country </td>
+                    <td>@customer.Company </td>
+                    <td>@customer.Phone </td>
+                    <td>@customer.Email </td>
                 </tr>
             }
         </tbody>
@@ -104,7 +104,7 @@ else
 }
 
 @code {
-    List<Customer> customers = CustomerRepository.GetCustomerData();
+    List<Customer> customers = CustomerCsvDataReader.GetCustomerData();
     List<String> DistinctValues = new(){
     "Select Attribute"
     };
@@ -130,7 +130,7 @@ else
     }
     private void ReloadData()
     {
-        customers = CustomerRepository.GetCustomerData();
+        customers = CustomerCsvDataReader.GetCustomerData();
 
     }
     private void OnSortAttributeSelected(ChangeEventArgs e)

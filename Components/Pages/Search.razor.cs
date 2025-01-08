@@ -5,8 +5,16 @@ namespace CustomerInformation.Components.Pages
 {
     public partial class Search
     {
-        List<Customer> customers = CustomerRepository.GetCustomerData();
-        List<String> SearchAttribute = Queries.ValidSearchAttributes;
+        List<Customer> customers = CustomerCsvDataReader.GetCustomerData();
+        List<String> SearchAttribute = [
+                "ID",
+                "Name",
+                "City",
+                "Country",
+                "Company",
+                "Phone",
+                "Email"
+            ];
         List<String> DistinctValues = new(){
     "Select Attribute"
     };
@@ -22,13 +30,10 @@ namespace CustomerInformation.Components.Pages
         private void OnValueSelected(ChangeEventArgs e)
         {
             SelectedAttributevalue = e.Value?.ToString() ?? DistinctValues[0]!;
-
-            if (SelectedAttributevalue != null)
-                customers = Queries.Find(customers, SelectedSearchAttribute, SelectedAttributevalue);
         }
         private void ReloadData()
         {
-            customers = CustomerRepository.GetCustomerData();
+            customers = CustomerCsvDataReader.GetCustomerData();
 
         }
     }

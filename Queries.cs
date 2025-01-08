@@ -1,33 +1,33 @@
 ﻿using Serilog;
-namespace Customer_Information
+namespace CustomerInformation
 {
     public class Queries
     {
         public static List<string> ValidSearchAttributes =
             [
-                "CustomerID",
-                "CustomerName",
-                "CustomerCity",
-                "CustomerCountry",
-                "CustomerCompany",
-                "CustomerPhone",
-                "CustomerEmail"
+                "ID",
+                "Name",
+                "City",
+                "Country",
+                "Company",
+                "Phone",
+                "Email"
             ];
         public static List<string> ValidSortAttributes =
             [
-                "CustomerID",
-                "CustomerName",
-                "CustomerCity",
-                "CustomerCountry",
-                "CustomerCompany",
-                "CustomerPhone",
-                "CustomerEmail"
+                "ID",
+                "Name",
+                "City",
+                "Country",
+                "Company",
+                "Phone",
+                "Email"
             ];
         public static List<string> ValidGroupAttributes =
             [
-                "CustomerCity",
-                "CustomerCountry",
-                "CustomerCompany"
+                "City",
+                "Country",
+                "Company"
             ];
         public static List<Customer> Find(List<Customer> customers , string attributeName , string attributeValue)
         {
@@ -38,9 +38,7 @@ namespace Customer_Information
             var matchedCustomers = customers.Where(c =>
             {
                 var value = property.GetValue(c)?.ToString();
-                return !string.IsNullOrEmpty(value) &&
-                       !string.IsNullOrEmpty(attributeValue) &&
-                       value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase);
+                return value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase);
             }).ToList();
             return matchedCustomers;
         }

@@ -18,7 +18,7 @@
 </select>
 
 @code {
-    List<Customer> customers = CustomerRepository.GetCustomerData();
+    List<Customer> customers = CustomerCsvDataReader.GetCustomerData();
     string SelectedGroupAttribute = string.Empty;
 
     private void OnGroupAttributeSelected(ChangeEventArgs e)
@@ -28,7 +28,7 @@
     }
     private void ReloadData()
     {
-        customers = CustomerRepository.GetCustomerData();
+        customers = CustomerCsvDataReader.GetCustomerData();
 
     }
 }
