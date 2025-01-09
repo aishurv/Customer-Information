@@ -4,8 +4,7 @@ using CustomerInformation;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.AddBuilderServices();
 
 var app = builder.Build();
 Logger.LogInitializer();
@@ -18,7 +17,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
