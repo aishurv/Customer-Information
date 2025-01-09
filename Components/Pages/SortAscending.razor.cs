@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace CustomerInformation.Components.Pages
 {
@@ -30,6 +31,11 @@ namespace CustomerInformation.Components.Pages
         {
             var property = typeof(Customer).GetProperty(attributeName);
             return customers.OrderBy(c => property.GetValue(c, null)).ToList();
+        }
+        private void UpdateCsvFile()
+        {
+            CustomerCsvHandler.UpdateCsv(customers);
+            JSRuntime.InvokeVoidAsync("showAlert", "File updated successfully !");
         }
     }
 }

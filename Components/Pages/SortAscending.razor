@@ -1,13 +1,14 @@
 ﻿@page "/sortAsc"
 @rendermode InteractiveServer
 @attribute [StreamRendering]
-<PageTitle>Customer</PageTitle>
+@inject IJSRuntime JSRuntime
+<PageTitle>Sort Customer</PageTitle>
 
 
 <h1>Customer Information System </h1>
 <h3> Sort Customer Data In Ascending Order </h3>
 <button class="btn btn-danger shadow-lg" @onclick="ReloadData">Reload Data </button>
-
+<button class="btn btn-outline-primary ms-1" @onclick="UpdateCsvFile">Save To File</button>
 <select class="btn btn-outline-primary shadow-lg" @onchange="OnSortAttributeSelected">
     <option value="">-- Select an Attribute --</option>
     @foreach (var str in ValidSort)
