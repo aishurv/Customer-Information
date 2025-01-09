@@ -13,14 +13,6 @@ namespace CustomerInformation
             .CreateLogger();
             Log.Information("Log Initialized !");
         }
-        /// <summary>
-        /// closing log and Log.CloseAndFlush
-        /// </summary>
-        public static void LogClose()
-        {
-            Log.Information("Program is Closing !");
-            Log.CloseAndFlush();
-        }
     }
 
 }
