@@ -42,6 +42,8 @@ namespace CustomerInformation.Components.Pages
         List<string> getDistinctValues (string attributeName)
         {
             var property = typeof(Customer).GetProperty(attributeName);
+            if (property == null)
+                return new List<string>();
 #nullable disable
             return customers
                 .Select(item => property.GetValue(item, null)?.ToString()) // Get property value and convert to string 
