@@ -35,8 +35,14 @@ namespace CustomerInformation.Components.Pages
         }
         private void UpdateCsvFile()
         {
-            CustomerCsvHandler.UpdateCsv(customers);
-            JSRuntime.InvokeVoidAsync("showAlert", "File updated successfully !");
+            if (CustomerCsvHandler.UpdateCsv(customers))
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
+            }
+            else
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "File Not Updated !");
+            }
         }
     }
 }

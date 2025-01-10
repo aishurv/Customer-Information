@@ -2,9 +2,39 @@
 @rendermode InteractiveServer
 @inject IJSRuntime JSRuntime
 <button class="btn btn-outline-primary ms-1" @onclick="UpdateCsvFile">Save To File</button>
+<button class="btn btn-danger shadow-lg" @onclick="ReloadData">Reload Data </button>
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <select class="btn btn-outline-primary shadow-lg" @onchange="OnSearchAttributeSelected">
+                <option value="">-- Select an Attribute --</option>
+                @foreach (var str in SearchAttribute)
+                {
+                    <option value="@str"> @str </option>
+                }
+            </select>
+        </div>
+
+        <div class="col">
+            <InputText id="ID" class="form-control col-md-8" @bind-Value="value" placeholder="Enter value"></InputText>           
+        </div>
+        <div class="col">
+            <button class="btn btn-outline-primary shadow-lg" @onclick="Searchvalue"> Search </button>
+        </div>
+
+        <div class="col d-flex justify-content-center align-items-center ">
+        </div>
+    </div>
+</div>
 @if (customers == null)
 {
     <p><em>Loading...</em></p>
+}
+else if (customers.Count==0)
+{
+    <p><em>No result Found !</em></p>
+    <button class="btn btn-outline-primary" @onclick="ReloadData">Reload Data </button>
 }
 else
 {

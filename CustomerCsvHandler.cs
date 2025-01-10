@@ -42,36 +42,34 @@ namespace CustomerInformation
             customersData.Add(customer);
         }
         /// <summary>
-        /// Update the Csv file add delete and modify changes reflect 
+        /// Update the Csv file to reflect the changes in csv 
         /// </summary>
-        public static void UpdateCsv()
+        public static bool UpdateCsv()
         {
-            var writer = new StreamWriter(InputFilePath);
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                // Write the header row and data
-                if (customersData.Count != 0)
-                    csv.WriteRecords(customersData);
-                else
-                    csv.WriteRecords("No Result Found !");
-            }
+            return UpdateCsv(CustomerCsvHandler.customersData);
         }
         /// <summary>
-        /// Update Csv with the given list of Customer data 
+        /// If customersDataList not empty Update Csv And return true else return false 
         /// </summary>
         /// <param name="customersDataList"></param>
-        public static void UpdateCsv(List<Customer> customersDataList)
+        public static bool UpdateCsv(List<Customer> customersDataList)
         {
             var writer = new StreamWriter(InputFilePath);
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 // Write the header row and data
                 if (customersDataList.Count != 0)
+                {
                     csv.WriteRecords(customersDataList);
+                    customersData = [.. customersDataList];
+                    return true;
+                }
                 else
+                {
                     Log.Warning("customersDataList Is Empty !");
+                    return false;
+                }
             }
-            customersData = [.. customersDataList];
         }
         /// <summary>
         /// Return the Customer data from given string if not found details return new customer instance

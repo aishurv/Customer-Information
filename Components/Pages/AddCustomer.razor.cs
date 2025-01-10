@@ -19,6 +19,7 @@ namespace CustomerInformation.Components.Pages
             if (string.IsNullOrEmpty(customer.Name) || string.IsNullOrEmpty(customer.ID))
             {
                 Console.WriteLine("Form data is invalid.");
+                JSRuntime.InvokeVoidAsync("showAlert", "Form data is invalid.");
             }
             else
             {
@@ -37,8 +38,14 @@ namespace CustomerInformation.Components.Pages
         }
         private void UpdateCsvFile()
         {
-            CustomerCsvHandler.UpdateCsv();
-            JSRuntime.InvokeVoidAsync("showAlert", "File updated successfully !");
+            if (CustomerCsvHandler.UpdateCsv())
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
+            }
+            else
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "Error ! Check log for more details !");
+            }
         }
     }
 		

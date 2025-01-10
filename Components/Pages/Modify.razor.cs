@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Serilog;
 
 namespace CustomerInformation.Components.Pages
 {
@@ -8,6 +9,7 @@ namespace CustomerInformation.Components.Pages
         List<Customer> customers = CustomerCsvHandler.GetCustomerData();
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+        private string value=string.Empty;
         public void EditCustomer(string id)
         {
             NavigationManager.NavigateTo($"/modify/{id}");
@@ -28,8 +30,41 @@ namespace CustomerInformation.Components.Pages
         }
         private void UpdateCsvFile()
         {
-            CustomerCsvHandler.UpdateCsv();
-            JSRuntime.InvokeVoidAsync("showAlert", "File updated successfully !");
+            if (CustomerCsvHandler.UpdateCsv())
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
+            }
+            else
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "Error ! Check log for more details !");
+            }
         }
+        List<String> SearchAttribute = [
+                "ID",
+                "Name",
+                "City",
+                "Country",
+                "Company",
+                "Phone",
+                "Email"
+            ];
+        
+        string SelectedSearchAttribute = string.Empty;
+        private void OnSearchAttributeSelected(ChangeEventArgs e)
+        {
+            SelectedSearchAttribute = e.Value?.ToString() ?? SearchAttribute[0]!;
+
+        }
+        private void ReloadData()
+        {
+            customers = CustomerCsvHandler.GetCustomerData();
+
+        }
+        private void Searchvalue()
+        {
+            customers = HelperMethods.SearchCustomer(customers, SelectedSearchAttribute, value);
+        }
+
+
     }
 }

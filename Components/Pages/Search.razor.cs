@@ -30,7 +30,7 @@ namespace CustomerInformation.Components.Pages
         private void OnValueSelected(ChangeEventArgs e)
         {
             SelectedAttributevalue = e.Value?.ToString() ?? DistinctValues[0]!;
-            customers = SearchCustomer(SelectedSearchAttribute, SelectedAttributevalue);
+            customers = HelperMethods.SearchCustomer(customers,SelectedSearchAttribute, SelectedAttributevalue);
 
         }
         private void ReloadData()
@@ -38,23 +38,11 @@ namespace CustomerInformation.Components.Pages
             customers = CustomerCsvHandler.GetCustomerData();
 
         }
-        List<Customer> SearchCustomer(string attributeName, string attributeValue)
-        {
-            Log.Information($"Find {attributeValue} of {attributeName}");
-#nullable disable
-            var property = typeof(Customer).GetProperty(attributeName);
-
-            var matchedCustomers = customers.Where(c =>
-            {
-                var value = property.GetValue(c)?.ToString();
-                return value.Equals(attributeValue, StringComparison.OrdinalIgnoreCase);
-            }).ToList();
-            return matchedCustomers;
-        }
+        
         List<string> getDistinctValues (string attributeName)
         {
             var property = typeof(Customer).GetProperty(attributeName);
-
+#nullable disable
             return customers
                 .Select(item => property.GetValue(item, null)?.ToString()) // Get property value and convert to string 
                 .Distinct() // Get distinct values

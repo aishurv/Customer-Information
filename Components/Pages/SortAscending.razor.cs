@@ -25,17 +25,25 @@ namespace CustomerInformation.Components.Pages
         private void ReloadData()
         {
             customers = CustomerCsvHandler.GetCustomerData();
+            JSRuntime.InvokeVoidAsync("showAlert", "Data Loaded Successfully !");
         }
-#nullable disable
         List<Customer> SortCustomersAsc(string attributeName)
         {
             var property = typeof(Customer).GetProperty(attributeName);
+            if (property == null)
+                return customers;
             return customers.OrderBy(c => property.GetValue(c, null)).ToList();
         }
         private void UpdateCsvFile()
         {
-            CustomerCsvHandler.UpdateCsv(customers);
-            JSRuntime.InvokeVoidAsync("showAlert", "File updated successfully !");
+            if(CustomerCsvHandler.UpdateCsv(customers))
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
+            }
+            else
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "File Not Updated !");
+            }
         }
     }
 }

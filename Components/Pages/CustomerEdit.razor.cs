@@ -23,8 +23,14 @@ namespace CustomerInformation.Components.Pages
 
         protected void SaveToFile()
         {
-            CustomerCsvHandler.UpdateCsv();
-            JSRuntime.InvokeVoidAsync("showAlert", "File updated successfully !");
+            if (CustomerCsvHandler.UpdateCsv())
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
+            }
+            else
+            {
+                JSRuntime.InvokeVoidAsync("showAlert", "Error ! Check log for more details !");
+            }
         }
         protected void OnUpdate()
         {
