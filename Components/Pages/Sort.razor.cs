@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace CustomerInformation.Components.Pages
 {
-    public partial class SortDescending
+    public partial class Sort
     {
         List<Customer> customers = CustomerCsvHandler.GetCustomerData();
         string SelectedSortAttribute = string.Empty;
@@ -16,26 +16,30 @@ namespace CustomerInformation.Components.Pages
                 "Phone",
                 "Email"
             ];
+        private bool IsDesc = false;
 
         private void OnSortAttributeSelected(ChangeEventArgs e)
         {
             SelectedSortAttribute = e.Value?.ToString() ?? ValidSort[0]!;
-            customers = SortCustomersDesc(SelectedSortAttribute);
+            customers = SortCustomers(SelectedSortAttribute, IsDesc);
         }
         private void ReloadData()
         {
             customers = CustomerCsvHandler.GetCustomerData();
-
+            JSRuntime.InvokeVoidAsync("showAlert", "Data Loaded Successfully !");
         }
-#nullable disable
-        List<Customer> SortCustomersDesc(string attributeName)
+        List<Customer> SortCustomers(string attributeName, bool IsDesc)
         {
             var property = typeof(Customer).GetProperty(attributeName);
-            return customers.OrderByDescending(c => property.GetValue(c, null)).ToList();
+            if (property == null)
+                return customers;
+            if (IsDesc)
+                return customers.OrderByDescending(c => property.GetValue(c, null)).ToList();
+            return customers.OrderBy(c => property.GetValue(c, null)).ToList();
         }
         private void UpdateCsvFile()
         {
-            if (CustomerCsvHandler.UpdateCsv(customers))
+            if(CustomerCsvHandler.UpdateCsv(customers))
             {
                 JSRuntime.InvokeVoidAsync("showAlert", "File updated Successfully !");
             }
