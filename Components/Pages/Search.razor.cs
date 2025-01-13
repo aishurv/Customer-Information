@@ -44,11 +44,11 @@ namespace CustomerInformation.Components.Pages
             var property = typeof(Customer).GetProperty(attributeName);
             if (property == null)
                 return new List<string>();
-
+#nullable disable
             return customers
-                .Select(item => property.GetValue(item, null)?.ToString()) 
-                .Distinct() 
-                .ToList()!; 
+                .Select(item => property.GetValue(item, null)?.ToString()) // Get property value and convert to string 
+                .Distinct() // Get distinct values
+                .ToList(); // Convert to list
         }
     }
 }

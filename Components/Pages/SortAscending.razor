@@ -1,4 +1,4 @@
-﻿@page "/sort"
+﻿@page "/sortAsc"
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 @inject IJSRuntime JSRuntime
@@ -6,7 +6,7 @@
 
 
 <h1>Customer Information System </h1>
-<h3> Sort Customer Data </h3>
+<h3> Sort Customer Data In Ascending Order </h3>
 <button class="btn btn-danger shadow-lg" @onclick="ReloadData">Reload Data </button>
 <button class="btn btn-outline-primary ms-1" @onclick="UpdateCsvFile">Save To File</button>
 <select class="btn btn-outline-primary shadow-lg" @onchange="OnSortAttributeSelected">
@@ -16,10 +16,6 @@
         <option value="@str"> @str </option>
     }
 </select>
-<div>
-    Select for Descending Order
-    <InputCheckbox @bind-value="@IsDesc" />
-</div>
 
 @if (customers == null)
 {
