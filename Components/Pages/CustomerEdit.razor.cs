@@ -11,9 +11,9 @@ namespace CustomerInformation.Components.Pages
         protected string Message = string.Empty;
         protected string StatusClass = string.Empty;
         [SupplyParameterFromForm]
-        public Customer customer { get; set; }
+        public Customer? customer { get; set; }
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        public NavigationManager? NavigationManager { get; set; }
 
         protected override void OnInitialized()
         {
@@ -39,7 +39,7 @@ namespace CustomerInformation.Components.Pages
         }
         protected void BackToModify()
         {
-            NavigationManager.NavigateTo($"/modify");
+            NavigationManager?.NavigateTo($"/modify");
         }
     }
 }
