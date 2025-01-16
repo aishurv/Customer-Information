@@ -13,6 +13,14 @@ namespace CustomerInformation.Helper
             .CreateLogger();
             Log.Information("Log Initialized !");
         }
+        public static void LogInformation(string info)
+        {
+            Log.Information(info);
+        }
+        public static void LogError(string info)
+        {
+            Log.Error(info);
+        }
     }
 
 }

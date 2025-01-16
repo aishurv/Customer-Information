@@ -5,7 +5,7 @@ using Serilog;
 
 namespace CustomerInformation.Components.Pages
 {
-    public partial class Search
+    public partial class Filter
     {
         List<Customer> customers = CustomerCsvHandler.GetCustomerData();
         List<String> SearchAttribute = [
@@ -27,7 +27,7 @@ namespace CustomerInformation.Components.Pages
             SelectedSearchAttribute = e.Value?.ToString() ?? SearchAttribute[0]!;
 
             if (SelectedSearchAttribute != null)
-                DistinctValues = getDistinctValues( SelectedSearchAttribute);
+                DistinctValues = getDistinctValues(SelectedSearchAttribute);
         }
         private void OnValueSelected(ChangeEventArgs e)
         {
@@ -40,17 +40,17 @@ namespace CustomerInformation.Components.Pages
             customers = CustomerCsvHandler.GetCustomerData();
 
         }
-        
-        List<string> getDistinctValues (string attributeName)
+
+        List<string> getDistinctValues(string attributeName)
         {
             var property = typeof(Customer).GetProperty(attributeName);
             if (property == null)
                 return new List<string>();
 
             return customers
-                .Select(item => property.GetValue(item, null)?.ToString()) 
-                .Distinct() 
-                .ToList()!; 
+                .Select(item => property.GetValue(item, null)?.ToString())
+                .Distinct()
+                .ToList()!;
         }
     }
 }
