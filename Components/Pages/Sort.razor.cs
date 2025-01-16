@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CustomerInformation.Helper;
+using CustomerInformation.Model;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace CustomerInformation.Components.Pages
@@ -21,22 +23,14 @@ namespace CustomerInformation.Components.Pages
         private void OnSortAttributeSelected(ChangeEventArgs e)
         {
             SelectedSortAttribute = e.Value?.ToString() ?? ValidSort[0]!;
-            customers = SortCustomers(SelectedSortAttribute, IsDesc);
+            customers = customers.SortCustomers(SelectedSortAttribute, IsDesc);
         }
         private void ReloadData()
         {
             customers = CustomerCsvHandler.GetCustomerData();
             JSRuntime.InvokeVoidAsync("showAlert", "Data Loaded Successfully !");
         }
-        List<Customer> SortCustomers(string attributeName, bool IsDesc)
-        {
-            var property = typeof(Customer).GetProperty(attributeName);
-            if (property == null)
-                return customers;
-            if (IsDesc)
-                return customers.OrderByDescending(c => property.GetValue(c, null)).ToList();
-            return customers.OrderBy(c => property.GetValue(c, null)).ToList();
-        }
+        
         private void UpdateCsvFile()
         {
             if(CustomerCsvHandler.UpdateCsv(customers))

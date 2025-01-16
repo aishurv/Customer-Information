@@ -1,6 +1,6 @@
 using CustomerInformation.Components;
 using Serilog;
-using CustomerInformation;
+using CustomerInformation.Helper;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

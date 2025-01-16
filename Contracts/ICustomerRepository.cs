@@ -1,4 +1,6 @@
-﻿namespace CustomerInformation.Contracts
+﻿using CustomerInformation.Model;
+
+namespace CustomerInformation.Contracts
 {
     public interface ICustomerRepository
     {

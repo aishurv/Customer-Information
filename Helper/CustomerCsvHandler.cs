@@ -1,17 +1,18 @@
 ﻿using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
+using CustomerInformation.Model;
 using Serilog;
-namespace CustomerInformation
+namespace CustomerInformation.Helper
 
 {
     public static class CustomerCsvHandler
     {
-        public const string InputFilePath = "CustomerData.csv";
+        public const string InputFilePath = "Data/CustomerData.csv";
         public static List<Customer> customersData = new();
         static CustomerCsvHandler()
         {
-            customersData = CustomerCsvHandler.ReadData();
+            customersData = ReadData();
         }
         public static List<Customer> ReadData(string filePath = InputFilePath)
         {
@@ -46,7 +47,7 @@ namespace CustomerInformation
         /// </summary>
         public static bool UpdateCsv()
         {
-            return UpdateCsv(CustomerCsvHandler.customersData);
+            return UpdateCsv(customersData);
         }
         /// <summary>
         /// If customersDataList not empty Update Csv And return true else return false 
@@ -79,7 +80,7 @@ namespace CustomerInformation
         public static Customer GetCustomerById(string id)
         {
             Customer? customer = customersData.FirstOrDefault(c => c.ID == id);
-            return customer?? new Customer();
+            return customer ?? new Customer();
         }
     }
 }

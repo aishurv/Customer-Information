@@ -1,4 +1,4 @@
-﻿namespace CustomerInformation
+﻿namespace CustomerInformation.Helper
 {
     public static class BuilderExtension
     {
@@ -8,8 +8,8 @@
         /// <param name="builder"></param>
         public static void AddBuilderServices(this WebApplicationBuilder builder)
         {
-             builder.Services.AddRazorComponents()
-            .AddInteractiveServerComponents();
+            builder.Services.AddRazorComponents()
+           .AddInteractiveServerComponents();
         }
     }
 }

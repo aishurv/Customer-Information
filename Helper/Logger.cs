@@ -1,5 +1,5 @@
 ﻿using Serilog;
-namespace CustomerInformation
+namespace CustomerInformation.Helper
 {
     public static class Logger
     {

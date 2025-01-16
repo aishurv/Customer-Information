@@ -1,4 +1,4 @@
-﻿namespace CustomerInformation
+﻿namespace CustomerInformation.Model
 {
     public class Customer
     {
@@ -14,9 +14,9 @@
         public Customer()
         {
             ID = string.Empty;
-            Name =string.Empty;
+            Name = string.Empty;
         }
-        public Customer (string id,String name)
+        public Customer(string id, string name)
         {
             ID = id;
             Name = name;

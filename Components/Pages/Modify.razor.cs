@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CustomerInformation.Helper;
+using CustomerInformation.Model;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Serilog;
 
@@ -62,7 +64,7 @@ namespace CustomerInformation.Components.Pages
         }
         private void Searchvalue()
         {
-            customers = HelperMethods.SearchCustomer(customers, SelectedSearchAttribute, value);
+            customers = customers.SearchCustomer(SelectedSearchAttribute, value);
         }
 
 

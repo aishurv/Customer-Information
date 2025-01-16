@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CustomerInformation.Helper;
+using CustomerInformation.Model;
+using Microsoft.AspNetCore.Components;
 using Serilog;
 
 namespace CustomerInformation.Components.Pages
@@ -30,7 +32,7 @@ namespace CustomerInformation.Components.Pages
         private void OnValueSelected(ChangeEventArgs e)
         {
             SelectedAttributevalue = e.Value?.ToString() ?? DistinctValues[0]!;
-            customers = HelperMethods.SearchCustomer(customers,SelectedSearchAttribute, SelectedAttributevalue);
+            customers = customers.SearchCustomer(SelectedSearchAttribute, SelectedAttributevalue);
 
         }
         private void ReloadData()

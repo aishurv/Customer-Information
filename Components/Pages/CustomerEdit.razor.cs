@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CustomerInformation.Helper;
+using CustomerInformation.Model;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace CustomerInformation.Components.Pages
